@@ -15,15 +15,22 @@ module.exports = {
     defaultNetwork: "hardhat",
     networks: {
         hardhat: {
-            chainId: 31337, 
-            blockConfirmations: 1, 
-        }, 
+            chainId: 31337,
+            blockConfirmations: 1,
+        },
         goerli: {
-            chainId: 5, 
-            blockConfirmations: 6, 
-            url: GOERLI_RPC_URL  ,
-            accounts: [PRIVATE_KEY] , 
-        }
+            chainId: 5,
+            blockConfirmations: 6,
+            url: GOERLI_RPC_URL,
+            accounts: [PRIVATE_KEY],
+        },
+    },
+    gasReporter: {
+        enabled: false,
+        currency: "USD",
+        outputFile: "gas-report.txt",
+        noColors: true,
+        //coinmarketcap: process.env.COINMARKETCAP_API_KEY,
     },
     solidity: "0.8.17",
     namedAccounts: {

@@ -13,7 +13,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 
 error Raffle_NotEnoughETHEntered();
 error Raffle__TransferFailed();
-error Raffle_NotOpen();
+error Raffle__RaffleNotOpen();
 error Raffle_UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffelState);
 
 /**
@@ -76,7 +76,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             revert Raffle_NotEnoughETHEntered();
         }
         if (s_raffleState != RaffleState.OPEN) {
-            revert Raffle_NotOpen();
+            revert Raffle__RaffleNotOpen();
         }
         s_players.push(payable(msg.sender));
         //Emit an event when we update a dynamic array or mapping
@@ -92,7 +92,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
      * 3. Our subscription is funded with LINK.
      * 4. The lottery should be in an "open" state.
      */
-    function checkUpkeep(                                   
+    function checkUpkeep(
         bytes memory /*checkData*/
     )
         public
@@ -102,10 +102,6 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             bytes memory /* performData */
         )
     {
-
-
-
-        
         bool isOpen = (RaffleState.OPEN == s_raffleState);
         bool timePassed = ((block.timestamp - s_lastTimeStamp) > i_interval);
         bool hasPlayer = (s_players.length > 0);
@@ -187,5 +183,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         return REQUEST_CONFIRMATIONS;
     }
 
-   
+    function getInterval() public view returns (uint256) {
+        return i_interval;
+    }
 }
