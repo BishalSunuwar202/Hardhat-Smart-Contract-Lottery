@@ -129,6 +129,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             i_callbackGasLimit,
             NUM_WORDS
         );
+        //this emit is redundant as vrfv2coordinator has requestId in it already 
         emit RequestedRaffleWinner(requestId);
     }
 
