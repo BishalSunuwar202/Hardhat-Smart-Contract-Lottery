@@ -3,7 +3,7 @@ const { run } = require("hardhat")
 const verify = async (contractAddress, args) => {
     console.log("verifying contract")
     try {
-        await run("veriy:verify", {
+        await run("verify:verify", {
             address: contractAddress,
             constructorArguments: args,
         })
@@ -16,6 +16,4 @@ const verify = async (contractAddress, args) => {
     }
 }
 
-module.exports = {
-    verify,
-}
+module.exports = { verify }
